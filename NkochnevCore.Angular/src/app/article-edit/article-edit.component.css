@@ -1,0 +1,23 @@
+.form-group{
+    margin-bottom: 10px;
+}
+
+.form-group label{
+    font-weight: bold;
+}
+
+.form-group .form-control{
+    width: 100% !important;
+}
+
+.form-group textarea{
+    height: 200px;
+}
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }

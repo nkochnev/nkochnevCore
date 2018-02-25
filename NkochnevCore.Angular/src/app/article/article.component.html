@@ -1,0 +1,16 @@
+<article *ngIf="article">
+  <header class="entry-header">
+    <div class="entry-meta">
+      <span>
+        <time dateTime="{{article.createdIso}}">{{article.created}}</time>
+        <time class="updated" dateTime="{{article.modifiedIso}}"></time>
+      </span>
+      <a routerLink="/articles/edit/{{article.key}}">Редактировать</a>
+    </div>
+    <h2 class="entry-title">
+        {{article.title}}
+    </h2>
+  </header>
+  <div class="entry-content" [innerHtml]="article.content">
+  </div>
+</article>

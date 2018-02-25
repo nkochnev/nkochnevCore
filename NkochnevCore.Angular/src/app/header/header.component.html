@@ -1,0 +1,42 @@
+<header id="masthead" class="site-header" role="banner">
+  <div class="container">
+<!--    @if (Model.UserIsAuth)-->
+<!--    {-->
+<!--    <a href="@Url.Action("SignOut", "Home")" class="signout" title="Выход">-->
+<!--      <i class="fa fa-sign-out"></i>-->
+<!--    </a>-->
+<!--    }-->
+
+    <a routerLink="/" title="Николай Кочнев" rel="home">
+      <img src="/assets/images/avatar.gif" alt="" class="header-image">
+    </a>
+    <div class="text-center">
+      <h1 class="site-title">
+        <a routerLink="/" rel="home">Николай Кочнев</a>
+      </h1>
+      <h2 class="site-description">
+        <span>Веб-разработчик, teamlead</span>
+        <span class="social-icons">
+          <a href="https://vk.com/nkochnev" title="vk" class="social-icon">
+            <fa name="vk"></fa>
+          </a>
+          <a href="https://github.com/nkochnev" title="github" class="social-icon">
+            <fa name="github"></fa>
+          </a>
+          <a href="https://www.linkedin.com/in/nkochnev" title="linkedin" class="social-icon">
+            <fa name="linkedin-square"></fa>
+          </a>
+          <a href="https://telegram.me/nkochnev" title="telegram" class="social-icon">
+            <fa name="telegram"></fa>
+          </a>
+          <a href="skype:n.kochnev?call" title="skype" class="social-icon">
+            <fa name="skype"></fa>
+          </a>
+          <a href="mailto:n.kochnev@gmail.com" title="email" class="social-icon">
+            <fa name="at"></fa>
+          </a>
+        </span>
+      </h2>
+    </div>
+  </div>
+</header>

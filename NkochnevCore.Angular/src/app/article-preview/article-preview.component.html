@@ -1,0 +1,19 @@
+<article>
+  <header class="entry-header">
+    <div class="entry-meta">
+      <a routerLink="/articles/{{article.key}}">
+        <span>
+          <time dateTime="{{article.createdIso}}">{{article.created}}</time>
+          <time class="updated" dateTime="{{article.modifiedIso}}"></time>
+        </span>
+      </a>
+    </div>
+    <h2 class="entry-title">
+      <a routerLink="/articles/{{article.key}}" rel="bookmark">
+        {{article.title}}
+      </a>
+    </h2>
+  </header>
+  <div class="entry-summary"  [innerHtml]="article.previewContent">
+  </div>
+</article>

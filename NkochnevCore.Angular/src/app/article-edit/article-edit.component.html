@@ -1,0 +1,30 @@
+<div *ngIf="article">
+  <form #articleForm='ngForm' (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="key">Ключ статьи</label>
+      <span id="key" name="key" >{{article.key}}</span>
+    </div>
+    <div class="form-group">
+      <label for="title"> Название статьи</label>
+      <input [(ngModel)]="article.title" class="form-control" id="title" name="title" placeholder="title" required>
+    </div>
+    <div class="form-group">
+      <label for="previewContent">Предпросмотр статьи</label>
+      <ckeditor [(ngModel)]="article.previewContent" [config]="{extraPlugins: 'divarea'}" id="previewContent" name="previewContent" [readonly]="false" debounce="500"></ckeditor>      
+    </div>
+    <div class="form-group">
+      <label for="seoKeyWords">SEO: ключевые слова</label>
+      <input [(ngModel)]="article.seoKeyWords" class="form-control" id="seoKeyWords" name="seoKeyWords" placeholder="seoKeyWords">
+    </div>
+    <div class="form-group">
+      <label for="seoDescription">SEO: описание</label>
+      <input [(ngModel)]="article.seoDescription" class="form-control" id="seoDescription" name="seoDescription" placeholder="seoDescription">
+    </div>
+    <div class="form-group">
+      <label for="content">Содержание статьи</label>
+      <ckeditor [(ngModel)]="article.content" [config]="{extraPlugins: 'divarea'}" id="content" name="content" [readonly]="false" debounce="500" required>
+      </ckeditor>
+    </div>
+    <button [disabled]='!articleForm.form.valid' type="submit">Сохранить</button>
+  </form>
+</div>
