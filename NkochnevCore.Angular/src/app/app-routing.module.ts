@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'articles/:key', component: ArticleComponent },
   { path: 'articles/edit/:key', component: ArticleEditComponent },
-  { path: 'articles/new/', component: ArticleEditComponent },
+  { path: 'createarticle', component: ArticleEditComponent },
 ];
 
 @NgModule({

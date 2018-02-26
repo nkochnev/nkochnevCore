@@ -2,10 +2,11 @@
   <form #articleForm='ngForm' (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="key">Ключ статьи</label>
-      <span id="key" name="key" >{{article.key}}</span>
+      <span id="key" name="key" *ngIf='key'>{{article.key}}</span>
+      <input [(ngModel)]="article.key" *ngIf='!key' class="form-control" id="key" name="key" placeholder="key" required>
     </div>
     <div class="form-group">
-      <label for="title"> Название статьи</label>
+      <label for="title">Название статьи</label>
       <input [(ngModel)]="article.title" class="form-control" id="title" name="title" placeholder="title" required>
     </div>
     <div class="form-group">
