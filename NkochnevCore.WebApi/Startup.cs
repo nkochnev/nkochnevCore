@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using NkochnevCore.Infrastructure.Data;
 using NkochnevCore.Infrastructure.Services;
 using NkochnevCore.Infrastructure.Services.Interfaces;
+using NkochnevCore.WebApi.Controllers;
 
 namespace NkochnevCore.WebApi
 {
@@ -32,7 +31,9 @@ namespace NkochnevCore.WebApi
 			services.AddCors();
 
 			services.AddDbContext<NkochnevDataContext>(
-				options => options.UseSqlServer(Configuration.GetConnectionString("NkochnevDataContext")));
+				options => options
+					.UseSqlServer(
+						Configuration.GetConnectionString("NkochnevDataContext")));
 			services.AddTransient<IArticleService, ArticleService>();
 			services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
 			services.AddTransient<IAuthService, AuthService>();
@@ -46,6 +47,56 @@ namespace NkochnevCore.WebApi
 				//количество символов в post запросе
 				options.KeyLengthLimit = 50000;
 			});
+
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddJwtBearer(options =>
+				{
+					options.RequireHttpsMetadata = false;
+					options.TokenValidationParameters = new TokenValidationParameters
+					{
+						// укзывает, будет ли валидироваться издатель при валидации токена
+						ValidateIssuer = true,
+						// строка, представляющая издателя
+						ValidIssuer = AuthOptions.ISSUER,
+
+						// будет ли валидироваться потребитель токена
+						ValidateAudience = true,
+						// установка потребителя токена
+						ValidAudience = AuthOptions.AUDIENCE,
+						// будет ли валидироваться время существования
+						ValidateLifetime = true,
+
+						// странная опция
+						// можно указать период, когда токен истёк, но считается сервером валидным
+						ClockSkew = TimeSpan.Zero,
+
+						// установка ключа безопасности
+						IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+						// валидация ключа безопасности
+						ValidateIssuerSigningKey = true,
+					};
+
+					options.Events = new JwtBearerEvents()
+					{
+						OnTokenValidated = context =>
+						{
+							return Task.CompletedTask;
+						},
+						OnMessageReceived = context =>
+						{
+							return Task.CompletedTask;
+						},
+						OnChallenge = context =>
+						{
+							return Task.CompletedTask;
+						}, 
+						OnAuthenticationFailed = context =>
+						{
+						return Task.CompletedTask;
+						}
+					};
+				});
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +108,8 @@ namespace NkochnevCore.WebApi
 			}
 
 			app.UseCors(builder =>
-				builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()); 
+				builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+			app.UseAuthentication();
 
 			app.UseMvc();
 			app.UseDefaultFiles();

@@ -4,6 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ArticlePreview } from '../article-preview';
 import { ArticleService } from '../article.service';
 import { SeoService } from '../seo-service.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   previews: ArticlePreview[] = [];
 
-  constructor(private seoService: SeoService, private articleService: ArticleService) {
+  constructor(private seoService: SeoService, private articleService: ArticleService, public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -29,5 +30,9 @@ export class HomeComponent implements OnInit {
 
   setPreviews(previews: ArticlePreview[]): void {
     this.previews = previews;
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }

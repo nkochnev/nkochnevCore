@@ -1,2 +1,5 @@
+<a routerLink='/enter' *ngIf="authService.isLoggedOut()">Enter</a>
+<a (click)="logout()" *ngIf="authService.isLoggedIn()">Exit</a>
+
 <app-article-preview-list [articles]="previews"></app-article-preview-list>
 <a routerLink='/createarticle'>Создать статью</a>

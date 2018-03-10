@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NkochnevCore.Infrastructure.Data;
 using NkochnevCore.Infrastructure.Domain;
 
 namespace NkochnevCore.Infrastructure.Mapping
@@ -14,6 +13,5 @@ namespace NkochnevCore.Infrastructure.Mapping
 			builder.Property(x => x.PassHash)
 				.HasMaxLength(500);
 		}
-		
 	}
 }

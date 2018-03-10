@@ -4,18 +4,20 @@ import { Observable } from 'rxjs/Observable';
 
 import { ArticlePreview } from './article-preview';
 import { Article } from './article';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class ArticleService {
 
   constructor(private http: HttpClient) { }
 
-  articleUrl: string = 'http://localhost:50376/api/articles';
+  articleUrl: string = environment.apiUrl + '/api/articles';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   getArticles(): Observable<ArticlePreview[]> {
+    console.log(this.articleUrl);
     return this.http.get<ArticlePreview[]>(this.articleUrl);
   }
 

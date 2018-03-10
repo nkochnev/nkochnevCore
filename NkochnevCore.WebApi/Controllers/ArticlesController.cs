@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters.Internal;
@@ -27,6 +28,7 @@ namespace NkochnevCore.WebApi.Controllers
 		}
 
 		[HttpGet("{key}")]
+		[Authorize()]
 		public ArticleFullModel GetArticleByKey(string key)
 		{
 			var articleDomain = _articleService.GetArticleDomain(key);
