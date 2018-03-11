@@ -23,6 +23,7 @@ import { AuthComponent } from './auth/auth.component';
 import { TokenInterceptor } from './tokenInterceptor';
 import { AuthGuard } from './auth-guard.service';
 import { RoutingState } from './RoutingState';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RoutingState } from './RoutingState';
     ArticlePreviewListComponent,
     ArticleComponent,
     ArticleEditComponent,
-    AuthComponent
+    AuthComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
