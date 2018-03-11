@@ -45,14 +45,13 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private catchError(error: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.isRefreshRequest(request)) {
-      this.router.navigate(['enter']);
-      return Observable.of(null);
-    }
-
     if (error instanceof HttpErrorResponse) {
       switch ((<HttpErrorResponse>error).status) {
         case 401:
+          if (this.isRefreshRequest(request)) {
+            this.router.navigate(['enter']);
+            return Observable.of(null);
+          }
           return this.refreshToken(request, next);
         case 500:
           return this.handle500Error(error);
