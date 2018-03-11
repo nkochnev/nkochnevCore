@@ -75,28 +75,7 @@ namespace NkochnevCore.WebApi
 						// валидация ключа безопасности
 						ValidateIssuerSigningKey = true,
 					};
-
-					options.Events = new JwtBearerEvents()
-					{
-						OnTokenValidated = context =>
-						{
-							return Task.CompletedTask;
-						},
-						OnMessageReceived = context =>
-						{
-							return Task.CompletedTask;
-						},
-						OnChallenge = context =>
-						{
-							return Task.CompletedTask;
-						}, 
-						OnAuthenticationFailed = context =>
-						{
-						return Task.CompletedTask;
-						}
-					};
 				});
-
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

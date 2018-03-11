@@ -28,7 +28,6 @@ namespace NkochnevCore.WebApi.Controllers
 		}
 
 		[HttpGet("{key}")]
-		[Authorize()]
 		public ArticleFullModel GetArticleByKey(string key)
 		{
 			var articleDomain = _articleService.GetArticleDomain(key);
@@ -36,6 +35,7 @@ namespace NkochnevCore.WebApi.Controllers
 		}
 		
 		[HttpPut("{key}")]
+		[Authorize()]
 		public ActionResult UpdateArticle([FromRoute] string key, [FromBody]ArticleFullModel article)
 		{
 			_articleService.UpdateArticle(key, article.Title, article.Content, article.PreviewContent,
@@ -44,6 +44,7 @@ namespace NkochnevCore.WebApi.Controllers
 		}
 		
 		[HttpPost]
+		[Authorize()]
 		public ActionResult CreateArticle([FromBody] ArticleFullModel article)
 		{
 			_articleService.CreateArticle(article.Key, article.Title, article.Content, article.PreviewContent,

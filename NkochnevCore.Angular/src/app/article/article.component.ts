@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ArticleService } from '../article.service';
 import { Article } from '../article';
 import { SeoService } from '../seo-service.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-article',
@@ -14,7 +15,7 @@ export class ArticleComponent implements OnInit {
   article: Article;
 
   constructor(private seoService: SeoService, private articleService: ArticleService, 
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, public authService: AuthService) { }
 
   ngOnInit() {
     const key = this.route.snapshot.paramMap.get('key');

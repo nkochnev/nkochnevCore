@@ -31,30 +31,49 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private _authService: AuthService, private router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+    if (!this.skipHandleRequest(request) && this._authService.isLoggedOut() && this._authService.getRefreshToken()) {
+      return this.refreshToken(request, next);
+    }
+
     request = this.addToken(request, this._authService.getToken());
 
     return next.handle(request).catch(error => this.catchError(error, request, next));
   }
 
+  private skipHandleRequest(request: HttpRequest<any>): boolean {
+    return request.url.indexOf('auth/refresh') > -1;
+  }
+
   private catchError(error: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(error.message);
 
     if (error instanceof HttpErrorResponse) {
       switch ((<HttpErrorResponse>error).status) {
         case 401:
-          return this.handle401Error(request, next);
+          return this.refreshToken(request, next);
+        case 500:
+          return this.handle500Error(error);
+        case 0:
+          return this.handle0Error(error);
       }
     } else {
       return Observable.throw(error);
     }
   }
 
-  handle401Error(req: HttpRequest<any>, next: HttpHandler) {
+  handle500Error(error: HttpErrorResponse) {
+    alert('На сервере проблема, сообщите моему хозяину');
+    return Observable.throw(error);
+  }
+
+  handle0Error(error: HttpErrorResponse) {
+    alert('Сервер недоступен, сообщите моему хозяину');
+    return Observable.throw(error);
+  }
+
+  refreshToken(req: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
 
-      // Reset here so that the following requests wait until the token
-      // comes back from the refreshToken call.
       this.tokenSubject.next(null);
 
       return this._authService.refreshToken()
@@ -65,11 +84,9 @@ export class TokenInterceptor implements HttpInterceptor {
             return next.handle(this.addToken(req, newToken.accessToken));
           }
 
-          // If we don't get a new token, we are in trouble so logout.
           return this.logoutUser();
         })
         .catch(error => {
-          // If there is an exception calling 'refreshToken', bad news so logout.
           return this.logoutUser();
         })
         .finally(() => {

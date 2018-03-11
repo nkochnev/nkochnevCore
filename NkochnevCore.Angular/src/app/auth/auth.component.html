@@ -1,7 +1,6 @@
 <form #authForm='ngForm' (ngSubmit)="authorize()">
     <div class="form-group">
         <input [(ngModel)]="pass" placeholder="secret key" type="password" name="pass" required autofocus/>
-        {{pass}}
     </div>
     <div class="form-group">
         <button [disabled]='!authForm.form.valid' type="submit">Enter</button>

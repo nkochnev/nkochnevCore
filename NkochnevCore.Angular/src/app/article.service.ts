@@ -17,7 +17,6 @@ export class ArticleService {
   };
 
   getArticles(): Observable<ArticlePreview[]> {
-    console.log(this.articleUrl);
     return this.http.get<ArticlePreview[]>(this.articleUrl);
   }
 

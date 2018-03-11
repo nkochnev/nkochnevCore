@@ -56,7 +56,6 @@ export class AuthService {
 
   refreshToken(): Observable<authResult> {
     const refreshTokenUrl = this.authUrl + '/refresh';
-    console.log(refreshTokenUrl);
     let refreshToken = this.getRefreshToken();
     var result = this.http.post<authResult>(refreshTokenUrl, { refreshToken }, this.httpOptions);
     return result;
@@ -66,7 +65,7 @@ export class AuthService {
     return localStorage.getItem(this.tokenLocalStorageKeyName);
   }
 
-  private getRefreshToken() {
+  getRefreshToken() {
     return localStorage.getItem(this.refreshLocalStorageKeyName);
   }
 }
