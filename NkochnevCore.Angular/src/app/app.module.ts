@@ -22,7 +22,6 @@ import { ArticleEditComponent } from './article-edit/article-edit.component';
 import { AuthComponent } from './auth/auth.component';
 import { TokenInterceptor } from './tokenInterceptor';
 import { AuthGuard } from './auth-guard.service';
-import { RoutingState } from './RoutingState';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SeoService,
     AuthService,
     AuthGuard,
-    RoutingState,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

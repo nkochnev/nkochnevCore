@@ -41,6 +41,7 @@ namespace NkochnevCore.WebApi.Controllers
 		public ActionResult RefreshToken([FromBody]RefreshTokenRequestModel model)
 		{
 			if (model == null) throw new ArgumentNullException(nameof(model));
+			if (model.RefreshToken == null) throw new UnauthorizedAccessException();
 
 			var newToken = _authService.RefreshToken(model.RefreshToken);
 			return Ok(newToken);

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RoutingState } from './RoutingState';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +6,7 @@ import { RoutingState } from './RoutingState';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(routingState: RoutingState) {
-    routingState.loadRouting();
+  constructor() {
   }
 
   title = 'app';

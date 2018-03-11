@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private _authService: AuthService, private router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!this.skipHandleRequest(request) && this._authService.isLoggedOut() && this._authService.getRefreshToken()) {
+    if (!this.isRefreshRequest(request) && this._authService.isLoggedOut() && this._authService.getRefreshToken()) {
       return this.refreshToken(request, next);
     }
 
@@ -40,11 +40,15 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).catch(error => this.catchError(error, request, next));
   }
 
-  private skipHandleRequest(request: HttpRequest<any>): boolean {
+  private isRefreshRequest(request: HttpRequest<any>): boolean {
     return request.url.indexOf('auth/refresh') > -1;
   }
 
   private catchError(error: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.isRefreshRequest(request)) {
+      this.router.navigate(['enter']);
+      return Observable.of(null);
+    }
 
     if (error instanceof HttpErrorResponse) {
       switch ((<HttpErrorResponse>error).status) {
