@@ -19,6 +19,12 @@ namespace NkochnevCore.WebApi.Controllers
 			_authService = authService;
 		}
 
+		[HttpGet]
+		public ActionResult Get()
+		{
+			return Content("ok");
+		}
+
 		[HttpPost]
 		public ActionResult Auth([FromBody]AuthRequestModel model)
 		{

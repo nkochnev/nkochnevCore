@@ -14,13 +14,22 @@ namespace NkochnevCore.WebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+	    public static IConfiguration Configuration { get; set; }
+
+		public static void Main(string[] args)
         {
 	        var logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
 	        try
 	        {
-		        logger.Debug("init main");
-		        BuildWebHost(args).Run();
+				logger.Debug("init main");
+
+		        var builder = new ConfigurationBuilder()
+			        .SetBasePath(Directory.GetCurrentDirectory())
+			        .AddJsonFile("appsettings.json");
+
+		        Configuration = builder.Build();
+
+				BuildWebHost(args).Run();
 	        }
 	        catch (Exception ex)
 	        {
@@ -32,6 +41,7 @@ namespace NkochnevCore.WebApi
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+				.UseKestrel()
                 .UseStartup<Startup>()
 	            .ConfigureLogging(logging =>
 	            {
