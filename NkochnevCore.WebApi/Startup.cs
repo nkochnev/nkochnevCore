@@ -35,8 +35,10 @@ namespace NkochnevCore.WebApi
 
 			services.AddDbContext<NkochnevDataContext>(
 				options => options
-					.UseSqlServer(
-						Configuration.GetConnectionString("NkochnevDataContext")));
+					//MS SQL
+					//.UseSqlServer(Configuration.GetConnectionString("NkochnevDataContext")));
+					//Postgres SQL
+					.UseNpgsql(Configuration.GetConnectionString("NkochnevDataContext")));
 			services.AddTransient<IArticleService, ArticleService>();
 			services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
 			services.AddTransient<IAuthService, AuthService>();

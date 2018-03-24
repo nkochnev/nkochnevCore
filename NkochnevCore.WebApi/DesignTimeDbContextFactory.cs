@@ -16,7 +16,12 @@ namespace NkochnevCore.WebApi
 				.Build();
 			var builder = new DbContextOptionsBuilder<NkochnevDataContext>();
 			var connectionString = configuration.GetConnectionString("NkochnevDataContext");
-			builder.UseSqlServer(connectionString, x => x.MigrationsAssembly("NkochnevCore.Infrastructure"));
+
+			//MS SQL
+			//builder.UseSqlServer(connectionString, x => x.MigrationsAssembly("NkochnevCore.Infrastructure"));
+			
+			//Postgres SQL
+			builder.UseNpgsql(connectionString, x => x.MigrationsAssembly("NkochnevCore.Infrastructure"));
 
 			return new NkochnevDataContext(builder.Options);
 		}
