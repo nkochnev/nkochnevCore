@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { HighlightModule } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -45,7 +46,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    HighlightModule.forRoot({ theme: 'agate' })
   ],
   providers: [
     ArticleService,

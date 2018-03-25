@@ -16,7 +16,7 @@ export class AuthService {
   private refreshLocalStorageKeyName = 'refresh_token';
   constructor(private http: HttpClient) { }
 
-  authUrl: string = environment.apiUrl + '/api/auth';
+  authUrl: string = '/api/auth';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

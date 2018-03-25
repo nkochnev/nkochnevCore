@@ -11,7 +11,7 @@ export class ArticleService {
 
   constructor(private http: HttpClient) { }
 
-  articleUrl: string = environment.apiUrl + '/api/articles';
+  articleUrl: string = '/api/articles';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

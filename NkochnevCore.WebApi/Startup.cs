@@ -96,13 +96,14 @@ namespace NkochnevCore.WebApi
 				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 			});
 
-			app.UseCors(builder =>
-				builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 			app.UseAuthentication();
 
 			app.UseMvc();
+
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
+
+			app.UseStatusCodePagesWithReExecute("/");
 		}
 	}
 }
