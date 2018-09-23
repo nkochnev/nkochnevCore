@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.articleService.getArticles().subscribe(previews => this.setPreviews(previews));
 
-    const keywords = "Кочнев Николай, Николай Кочнев, Кочнев Николай Иванович, Кочнев Николай Екатеринбург, Николай Кочнев Екатеринбург, Николай Иванович Кочнев, nkochnev, nkochnev.ru, веб-программист, web-программист, Единый Расчетный Центр teamlead, Единый Расчетный Центр";
-    const description = 'Кочнев Николай, web-программист и teamlead компании Единый Расчетный Центр';
-    const title = 'Кочнев Николай - веб-программист и teamlead';
+    const keywords = "Кочнев Николай, Николай Кочнев, Кочнев Николай Иванович, Кочнев Николай Екатеринбург, Николай Кочнев Екатеринбург, Николай Иванович Кочнев, nkochnev, nkochnev.ru, веб-программист, web-программист";
+    const description = 'Кочнев Николай, программист';
+    const title = 'Кочнев Николай - программист';
 
     this.seoService.setSeoInfo(title, keywords, description);
   }
