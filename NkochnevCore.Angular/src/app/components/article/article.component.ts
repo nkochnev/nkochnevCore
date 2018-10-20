@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 
-import { ArticleService } from '../article.service';
-import { Article } from '../article';
-import { SeoService } from '../seo-service.service';
-import { AuthService } from '../auth.service';
+import { ArticleService } from '../../services/article.service';
+import { Article } from '../../models/article';
+import { SeoService } from '../../services/seo-service.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-article',

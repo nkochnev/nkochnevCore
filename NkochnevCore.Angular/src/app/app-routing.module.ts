@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 
-import { HomeComponent } from './home/home.component';
-import { ArticleComponent } from './article/article.component';
-import { ArticleEditComponent } from './article-edit/article-edit.component';
-import { AuthComponent } from './auth/auth.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './components/home/home.component';
+import { ArticleComponent } from './components/article/article.component';
+import { ArticleEditComponent } from './components/article-edit/article-edit.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },

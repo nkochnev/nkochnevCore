@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ArticlePreview } from '../article-preview';
+import { ArticlePreview } from '../../models/article-preview';
 
 @Component({
   selector: 'app-article-preview',

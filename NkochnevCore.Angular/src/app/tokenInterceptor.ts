@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { Router } from "@angular/router";
 
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +20,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/take';
-import { authResult } from './authresult';
+import { authResult } from './models/authresult';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

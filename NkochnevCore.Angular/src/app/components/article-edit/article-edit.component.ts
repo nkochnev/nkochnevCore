@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 
-import { ArticleService } from '../article.service';
-import { Article } from '../article';
-import { SeoService } from '../seo-service.service';
+import { ArticleService } from '../../services/article.service';
+import { Article } from '../../models/article';
+import { SeoService } from '../../services/seo-service.service';
 
 @Component({
   selector: 'app-article-edit',

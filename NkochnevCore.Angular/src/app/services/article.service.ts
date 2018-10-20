@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { ArticlePreview } from './article-preview';
-import { Article } from './article';
-import { environment } from '../environments/environment';
+import { ArticlePreview } from '../models/article-preview';
+import { Article } from '../models/article';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ArticleService {

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { ArticlePreview } from '../article-preview';
-import { ArticleService } from '../article.service';
-import { SeoService } from '../seo-service.service';
-import { AuthService } from '../auth.service';
+import { ArticlePreview } from '../../models/article-preview';
+import { ArticleService } from '../../services/article.service';
+import { SeoService } from '../../services/seo-service.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',

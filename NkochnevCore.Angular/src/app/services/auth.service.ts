@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { authResult } from './authresult';
+import { authResult } from '../models/authresult';
 
 import * as moment from "moment";
 
 import 'rxjs/add/operator/map';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
