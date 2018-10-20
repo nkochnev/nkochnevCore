@@ -5,78 +5,73 @@ using Microsoft.IdentityModel.Tokens;
 using NkochnevCore.Infrastructure.Data;
 using NkochnevCore.Infrastructure.Domain;
 using NkochnevCore.Infrastructure.Services.Interfaces;
-using NkochnevCore.WebApi.Controllers;
 
 namespace NkochnevCore.Infrastructure.Services
 {
-	public class AuthService : IAuthService
-	{
-		private readonly IRepository<AuthDomain> _authRepository;
-		private readonly IRepository<AuthTokenDomain> _tokenRepository;
-		private readonly IEncryptionService _encryptionService;
+    public class AuthService : IAuthService
+    {
+        private readonly IRepository<AuthDomain> _authRepository;
+        private readonly IEncryptionService _encryptionService;
+        private readonly IRepository<AuthTokenDomain> _tokenRepository;
 
-		public AuthService(IRepository<AuthDomain> authRepository, IRepository<AuthTokenDomain> tokenRepository,
-			IEncryptionService encryptionService)
-		{
-			_authRepository = authRepository;
-			_tokenRepository = tokenRepository;
-			_encryptionService = encryptionService;
-		}
+        public AuthService(IRepository<AuthDomain> authRepository, IRepository<AuthTokenDomain> tokenRepository,
+            IEncryptionService encryptionService)
+        {
+            _authRepository = authRepository;
+            _tokenRepository = tokenRepository;
+            _encryptionService = encryptionService;
+        }
 
-		public bool ValidatePass(string password)
-		{
-			var allHashs = _authRepository.Table.ToList();
-			return allHashs.Any(authDomain => _encryptionService.Validate(password, authDomain.PassHash));
-		}
+        public bool ValidatePass(string password)
+        {
+            var allHashs = _authRepository.Table.ToList();
+            return allHashs.Any(authDomain => _encryptionService.Validate(password, authDomain.PassHash));
+        }
 
-		public AuthToken CreateToken()
-		{
-			var now = DateTime.Now;
-			var expires = now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME));
-			var jwt = new JwtSecurityToken(
-				issuer: AuthOptions.ISSUER,
-				audience: AuthOptions.AUDIENCE,
-				notBefore: now,
-				expires: expires,
-				signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-			
-			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-			var refreshToken = Guid.NewGuid().ToString();
+        public AuthToken CreateToken()
+        {
+            var now = DateTime.Now;
+            var expires = now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime));
+            var jwt = new JwtSecurityToken(
+                AuthOptions.Issuer,
+                AuthOptions.Audience,
+                notBefore: now,
+                expires: expires,
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256));
 
-			var tokenDomain = new AuthTokenDomain()
-			{
-				RefreshToken = refreshToken,
-				Expiresin = expires,
-				JwtToken = encodedJwt,
-				RefreshTokenValid = true
-			};
-			_tokenRepository.Insert(tokenDomain);
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var refreshToken = Guid.NewGuid().ToString();
 
-			return new AuthToken()
-			{
-				accessToken = encodedJwt,
-				expiresIn = expires,
-				refreshToken = refreshToken
-			};
-		}
+            var tokenDomain = new AuthTokenDomain
+            {
+                RefreshToken = refreshToken,
+                Expiresin = expires,
+                JwtToken = encodedJwt,
+                RefreshTokenValid = true
+            };
+            _tokenRepository.Insert(tokenDomain);
 
-		public AuthToken RefreshToken(string refreshToken)
-		{
-			var tokenDomain = _tokenRepository.Table.FirstOrDefault(x => x.RefreshToken == refreshToken);
-			if (tokenDomain == null)
-			{
-				throw new Exception($"Refresh token {refreshToken} not found");
-			}
+            return new AuthToken
+            {
+                accessToken = encodedJwt,
+                expiresIn = expires,
+                refreshToken = refreshToken
+            };
+        }
 
-			if (!tokenDomain.RefreshTokenValid)
-			{
-				throw new Exception($"Refresh token {refreshToken} has already been used");
-			}
+        public AuthToken RefreshToken(string refreshToken)
+        {
+            var tokenDomain = _tokenRepository.Table.FirstOrDefault(x => x.RefreshToken == refreshToken);
+            if (tokenDomain == null) throw new Exception($"Refresh token {refreshToken} not found");
 
-			tokenDomain.RefreshTokenValid = false;
-			_tokenRepository.Update(tokenDomain);
+            if (!tokenDomain.RefreshTokenValid)
+                throw new Exception($"Refresh token {refreshToken} has already been used");
 
-			return CreateToken();
-		}
-	}
+            tokenDomain.RefreshTokenValid = false;
+            _tokenRepository.Update(tokenDomain);
+
+            return CreateToken();
+        }
+    }
 }

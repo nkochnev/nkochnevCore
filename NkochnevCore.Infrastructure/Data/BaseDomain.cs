@@ -1,6 +1,6 @@
 ﻿namespace NkochnevCore.Infrastructure.Data
 {
-	public class BaseDomain
-	{
-	}
+    public class BaseDomain
+    {
+    }
 }
