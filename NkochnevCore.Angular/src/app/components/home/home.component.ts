@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
-import { ArticlePreview } from '../../models/article-preview';
+import { Article} from '../../models/article';
 import { ArticleService } from '../../services/article.service';
 import { SeoService } from '../../services/seo-service.service';
 import { AuthService } from '../../services/auth.service';
@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  previews: ArticlePreview[] = [];
+  previews: Article[] = [];
 
   constructor(private seoService: SeoService, private articleService: ArticleService, public authService: AuthService) {
   }
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     this.seoService.setSeoInfo(title, keywords, description);
   }
 
-  setPreviews(previews: ArticlePreview[]): void {
+  setPreviews(previews: Article[]): void {
     this.previews = previews;
   }
 

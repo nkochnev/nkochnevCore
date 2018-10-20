@@ -1,6 +1,5 @@
-import { ArticleBase } from './article-base'
 
-export class Article implements ArticleBase {
+export class Article  {
   key: string;
   title: string;
   created: string;

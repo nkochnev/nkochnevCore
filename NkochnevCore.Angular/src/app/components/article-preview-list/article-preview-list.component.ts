@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ArticlePreview } from '../../models/article-preview';
+import { Article } from '../../models/article';
 
 @Component({
   selector: 'app-article-preview-list',
@@ -8,7 +8,7 @@ import { ArticlePreview } from '../../models/article-preview';
 })
 export class ArticlePreviewListComponent implements OnInit {
 
-  @Input() articles: ArticlePreview[];
+  @Input() articles: Article[];
 
   constructor() { }
 

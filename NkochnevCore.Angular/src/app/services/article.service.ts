@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { ArticlePreview } from '../models/article-preview';
 import { Article } from '../models/article';
 import { environment } from '../../environments/environment';
 
@@ -16,8 +15,8 @@ export class ArticleService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  getArticles(): Observable<ArticlePreview[]> {
-    return this.http.get<ArticlePreview[]>(this.articleUrl);
+  getArticles(): Observable<Article[]> {
+    return this.http.get<Article[]>(this.articleUrl);
   }
 
   getArticleByKey(key: string): Observable<Article> {

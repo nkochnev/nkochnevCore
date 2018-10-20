@@ -24,23 +24,23 @@ namespace NkochnevCore.WebApi.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<ArticleModelBase> GetArticles()
+		public IEnumerable<ArticleModel> GetArticles()
 		{
 			_logger.LogInformation("GetArticles says hello");
 			var articles = _articleService.GetArticles();
-			return articles.Select(x => new ArticleModelBase(x));
+			return articles.Select(x => new ArticleModel(x));
 		}
 
 		[HttpGet("{key}")]
-		public ArticleFullModel GetArticleByKey(string key)
+		public ArticleModel GetArticleByKey(string key)
 		{
 			var articleDomain = _articleService.GetArticleDomain(key);
-			return new ArticleFullModel(articleDomain);
+			return new ArticleModel(articleDomain);
 		}
 		
 		[HttpPut("{key}")]
 		[Authorize()]
-		public ActionResult UpdateArticle([FromRoute] string key, [FromBody]ArticleFullModel article)
+		public ActionResult UpdateArticle([FromRoute] string key, [FromBody]ArticleModel article)
 		{
 			_articleService.UpdateArticle(key, article.Title, article.Content, article.PreviewContent,
 				article.SeoKeyWords, article.SeoDescription);
@@ -49,7 +49,7 @@ namespace NkochnevCore.WebApi.Controllers
 		
 		[HttpPost]
 		[Authorize()]
-		public ActionResult CreateArticle([FromBody] ArticleFullModel article)
+		public ActionResult CreateArticle([FromBody] ArticleModel article)
 		{
 			_articleService.CreateArticle(article.Key, article.Title, article.Content, article.PreviewContent,
 				article.SeoKeyWords, article.SeoDescription);
