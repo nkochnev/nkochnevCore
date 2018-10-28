@@ -2,7 +2,8 @@
 Личный сайт
 
 Используемые технологии и инструменты:
-* .NET core 2.0
+* .NET Standard 2.0
+* .NET core 2.1
 * Angular 5
 * MS SQL
 * PostgreSQL
@@ -28,7 +29,8 @@ ___
 Personel site
 
 Technologies and tools used:
-* .NET core 2.0
+* .NET Standard 2.0
+* .NET core 2.1
 * Angular 5
 * MS SQL
 * PostgreSQL
