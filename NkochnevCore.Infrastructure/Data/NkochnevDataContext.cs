@@ -19,7 +19,7 @@ namespace NkochnevCore.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             // Interface that all of our Entity maps implement
             var mappingInterface = typeof(IEntityTypeConfiguration<>);
 
