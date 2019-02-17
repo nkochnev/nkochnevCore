@@ -1,3 +1,4 @@
+import {throwError as observableThrowError,  Observable ,  BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -8,18 +9,8 @@ import {
 } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { Router } from "@angular/router";
-
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/take';
+import { catchError, switchMap,finalize,take, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { authResult } from './models/authresult';
 
 @Injectable()
@@ -36,21 +27,20 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     request = this.addToken(request, this._authService.getToken());
-
-    return next.handle(request).catch(error => this.catchError(error, request, next));
+    return next.handle(request).pipe(catchError(err => this.handleError(err, request, next)));
   }
 
   private isRefreshRequest(request: HttpRequest<any>): boolean {
     return request.url.indexOf('auth/refresh') > -1;
   }
 
-  private catchError(error: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private handleError(error: any, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (error instanceof HttpErrorResponse) {
       switch ((<HttpErrorResponse>error).status) {
         case 401:
           if (this.isRefreshRequest(request)) {
             this.router.navigate(['enter']);
-            return Observable.of(null);
+            return of(null);
           }
           return this.refreshToken(request, next);
         case 500:
@@ -59,18 +49,18 @@ export class TokenInterceptor implements HttpInterceptor {
           return this.handle0Error(error);
       }
     } else {
-      return Observable.throw(error);
+      return observableThrowError(error);
     }
   }
 
   handle500Error(error: HttpErrorResponse) {
     alert('На сервере проблема, сообщите моему хозяину');
-    return Observable.throw(error);
+    return observableThrowError(error);
   }
 
   handle0Error(error: HttpErrorResponse) {
     alert('Сервер недоступен, сообщите моему хозяину');
-    return Observable.throw(error);
+    return observableThrowError(error);
   }
 
   refreshToken(req: HttpRequest<any>, next: HttpHandler) {
@@ -79,8 +69,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
       this.tokenSubject.next(null);
 
-      return this._authService.refreshToken()
-        .switchMap((newToken: authResult) => {
+      return this._authService.refreshToken().pipe(switchMap((newToken: authResult) => {
           if (newToken) {
             this.tokenSubject.next(newToken);
             this._authService.setSession(newToken);
@@ -88,27 +77,27 @@ export class TokenInterceptor implements HttpInterceptor {
           }
 
           return this.logoutUser();
-        })
-        .catch(error => {
+        }),
+        catchError(error => {
           return this.logoutUser();
-        })
-        .finally(() => {
+        }),
+        finalize(() => {
           this.isRefreshingToken = false;
-        });
+        }))
     } else {
-      return this.tokenSubject
-        .filter(token => token != null)
-        .take(1)
-        .switchMap(token => {
+      return this.tokenSubject.pipe(
+        filter(token => token != null),
+        take(1),
+        switchMap(token => {
           return next.handle(this.addToken(req, token.accessToken));
-        });
+        }));
     }
   }
 
   private logoutUser() {
     this._authService.logout();
     this.router.navigate(['/'])
-    return Observable.of(null);
+    return of(null);
   }
 
   private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { authResult } from '../models/authresult';
 
-import * as moment from "moment";
+import { map } from 'rxjs/operators';
 
-import 'rxjs/add/operator/map';
-import { environment } from '../../environments/environment';
+import * as moment from "moment";
 
 @Injectable()
 export class AuthService {
@@ -22,9 +21,9 @@ export class AuthService {
   };
 
   validatePass(pass: string) {
-    var result = this.http.post<authResult>(this.authUrl, { pass }, this.httpOptions).map(res => {
+    var result = this.http.post<authResult>(this.authUrl, { pass }, this.httpOptions).pipe(map(res => {
       this.setSession(res);
-    });
+    }));
     return result;
   }
 
