@@ -4,7 +4,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // angular 4.x and greater
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CKEditorModule } from 'ng2-ckeditor';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -45,7 +45,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    CKEditorModule
+    MarkdownModule.forRoot(),
   ],
   providers: [
     ArticleService,

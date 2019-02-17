@@ -4,10 +4,6 @@ namespace NkochnevCore.WebApi.Models
 {
     public class ArticleModel
     {
-        public ArticleModel()
-        {
-        }
-
         public ArticleModel(ArticleDomain articleDomain)
         {
             Title = articleDomain.Title;
@@ -36,5 +32,12 @@ namespace NkochnevCore.WebApi.Models
         public string Content { get; set; }
         public string SeoKeyWords { get; set; }
         public string SeoDescription { get; set; }
+
+        public ArticleModel ToMarkdownStyle()
+        {
+            PreviewContent = MarkdownHelper.AddDefaultLangToCodeWrappers(PreviewContent);
+            Content = MarkdownHelper.AddDefaultLangToCodeWrappers(Content);
+            return this;
+        }
     }
 }

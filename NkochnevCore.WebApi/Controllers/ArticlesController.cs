@@ -26,14 +26,14 @@ namespace NkochnevCore.WebApi.Controllers
         {
             _logger.LogInformation("GetArticles says hello");
             var articles = _articleService.GetArticles();
-            return articles.Select(x => new ArticleModel(x));
+            return articles.Select(x => new ArticleModel(x).ToMarkdownStyle());
         }
 
         [HttpGet("{key}")]
         public ArticleModel GetArticleByKey(string key)
         {
             var articleDomain = _articleService.GetArticleDomain(key);
-            return new ArticleModel(articleDomain);
+            return new ArticleModel(articleDomain).ToMarkdownStyle();
         }
 
         [HttpPut("{key}")]

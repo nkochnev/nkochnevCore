@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using NkochnevCore.Infrastructure.Data;
 using NkochnevCore.Infrastructure.Domain;
 using NkochnevCore.Infrastructure.Services.Interfaces;
@@ -19,7 +20,7 @@ namespace NkochnevCore.Infrastructure.Services
         public ArticleDomain GetArticleDomain(string key)
         {
             var article = FindArticleDomain(key);
-            if (article == null) throw new Exception(string.Format("Не найдена статья с ключом {0}", key));
+            if (article == null) throw new Exception($"Не найдена статья с ключом {key}");
             return article;
         }
 
