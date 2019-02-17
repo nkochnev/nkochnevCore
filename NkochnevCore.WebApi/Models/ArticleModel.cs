@@ -1,9 +1,15 @@
-﻿using NkochnevCore.Infrastructure.Domain;
+﻿using JetBrains.Annotations;
+using NkochnevCore.Infrastructure.Domain;
 
 namespace NkochnevCore.WebApi.Models
 {
     public class ArticleModel
     {
+        [UsedImplicitly]
+        public ArticleModel()
+        {
+        }
+
         public ArticleModel(ArticleDomain articleDomain)
         {
             Title = articleDomain.Title;

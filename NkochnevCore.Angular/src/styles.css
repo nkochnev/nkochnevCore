@@ -1083,6 +1083,7 @@ a {
 
 .social-icon {
   text-decoration: none;
+  margin: 10px 10px 0 0 ;
 }
 
 @media screen and (max-width: 900px) {
@@ -1096,16 +1097,12 @@ a {
     overflow-x: auto;
   }
 
-  .social-icon {
-    margin: 10px 10px 0 0 ;
-  }
-
   .social-icon i {
-    font-size:2em
+    font-size:2em;    
   }
 
   .social-icons {
-    margin-top: 25px;
+    margin-top: 25px;    
   }
 }
 
