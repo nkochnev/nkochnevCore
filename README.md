@@ -4,7 +4,7 @@
 Используемые технологии и инструменты:
 * .NET Standard 2.0
 * .NET core 2.1
-* Angular 5
+* Angular 7
 * MS SQL
 * PostgreSQL
 * Microsoft Visual Studio 2017
