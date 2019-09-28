@@ -21,15 +21,6 @@
         [readonly]="false"></textarea>
     </div>
     <div class="form-group">
-      <label for="seoKeyWords">SEO: ключевые слова</label>
-      <input [(ngModel)]="article.seoKeyWords" class="form-control" id="seoKeyWords" name="seoKeyWords" placeholder="seoKeyWords">
-    </div>
-    <div class="form-group">
-      <label for="seoDescription">SEO: описание</label>
-      <input [(ngModel)]="article.seoDescription" class="form-control" id="seoDescription" name="seoDescription"
-        placeholder="seoDescription">
-    </div>
-    <div class="form-group">
       <label for="content">Содержание статьи</label>
       <textarea [(ngModel)]="article.content" id="content" name="content" [readonly]="false" debounce="500" required>
       </textarea>

@@ -14,22 +14,16 @@ import { AuthService } from '../../services/auth.service';
 export class ArticleComponent implements OnInit {
   article: Article;
 
-  constructor(private seoService: SeoService, private articleService: ArticleService, 
+  constructor(private seoService: SeoService, private articleService: ArticleService,
     private route: ActivatedRoute, public authService: AuthService) { }
 
   ngOnInit() {
     const key = this.route.snapshot.paramMap.get('key');
-    this.articleService.getArticleByKey(key).subscribe(article=>this.setArticle(article));
+    this.articleService.getArticleByKey(key).subscribe(article => this.setArticle(article));
   }
 
-  setArticle(article : Article) : void {
+  setArticle(article: Article): void {
     this.article = article;
-
-    const keywords = article.seoKeyWords;
-    const description = article.seoDescription;
-    const title = article.title;
-
-    this.seoService.setSeoInfo(title, keywords, description);
+    this.seoService.setSeoInfo(article.title, article.previewContent);
   }
-
 }

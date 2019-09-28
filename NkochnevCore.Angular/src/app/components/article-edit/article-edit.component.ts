@@ -29,11 +29,9 @@ export class ArticleEditComponent implements OnInit {
   setArticle(article: Article): void {
     this.article = article;
 
-    const keywords = article.seoKeyWords;
-    const description = article.seoDescription;
     const title = 'Редактирование статьи: ' + article.title;
 
-    this.seoService.setSeoInfo(title, keywords, description);
+    this.seoService.setSeoInfo(title, article.previewContent);
   }
 
   onSubmit(): void {

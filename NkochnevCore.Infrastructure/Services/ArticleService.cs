@@ -31,23 +31,21 @@ namespace NkochnevCore.Infrastructure.Services
             return article;
         }
 
-        public ArticleDomain CreateArticle(string key, string title, string content, string preview, string seoKeyWords,
-            string seoDescription, bool isDraft)
+        public ArticleDomain CreateArticle(string key, string title, string content, string preview, bool isDraft)
         {
             var article = FindArticleDomain(key);
             if (article != null) throw new Exception($"Статья с ключом {article.Key} уже создана");
 
-            article = FillArticle(new ArticleDomain(), key, title, content, preview, seoKeyWords, seoDescription, isDraft);
+            article = FillArticle(new ArticleDomain(), key, title, content, preview, isDraft);
             article.Created = DateTime.Now;
             _articleRepository.Insert(article);
             return article;
         }
 
-        public ArticleDomain UpdateArticle(string key, string title, string content, string preview, string seoKeyWords,
-            string seoDescription, bool isDraft)
+        public ArticleDomain UpdateArticle(string key, string title, string content, string preview, bool isDraft)
         {
             var article = FindArticleDomain(key);
-            article = FillArticle(article, key, title, content, preview, seoKeyWords, seoDescription, isDraft);
+            article = FillArticle(article, key, title, content, preview, isDraft);
             _articleRepository.Update(article);
             return article;
         }
@@ -65,15 +63,12 @@ namespace NkochnevCore.Infrastructure.Services
         }
 
         private ArticleDomain FillArticle(ArticleDomain article, string key, string title, string content,
-            string preview, string seoKeyWords,
-            string seoDescription, bool isDraft)
+            string preview, bool isDraft)
         {
             article.Title = title;
             article.Content = content;
             article.Modified = DateTime.Now;
             article.Key = key;
-            article.SeoKeyWords = seoKeyWords;
-            article.SeoDescription = seoDescription;
             article.Preview = preview;
             article.IsDraft = isDraft;
             return article;

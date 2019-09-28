@@ -8,11 +8,9 @@ namespace NkochnevCore.Infrastructure.Services.Interfaces
         ArticleDomain GetArticleDomain(string key);
         ArticleDomain FindArticleDomain(string key);
 
-        ArticleDomain CreateArticle(string key, string title, string content, string preview, string seoKeyWords,
-            string seoDescription, bool isDraft);
+        ArticleDomain CreateArticle(string key, string title, string content, string preview, bool isDraft);
 
-        ArticleDomain UpdateArticle(string key, string title, string content, string preview, string seoKeyWords,
-            string seoDescription, bool isDraft);
+        ArticleDomain UpdateArticle(string key, string title, string content, string preview, bool isDraft);
 
         List<ArticleDomain> GetArticles();
 

@@ -42,8 +42,7 @@ namespace NkochnevCore.WebApi.Controllers
         [Authorize]
         public ActionResult UpdateArticle([FromRoute] string key, [FromBody] ArticleModel article)
         {
-            _articleService.UpdateArticle(key, article.Title, article.Content, article.PreviewContent,
-                article.SeoKeyWords, article.SeoDescription, article.IsDraft);
+            _articleService.UpdateArticle(key, article.Title, article.Content, article.PreviewContent, article.IsDraft);
             return new OkResult();
         }
 
@@ -51,8 +50,7 @@ namespace NkochnevCore.WebApi.Controllers
         [Authorize]
         public ActionResult CreateArticle([FromBody] ArticleModel article)
         {
-            _articleService.CreateArticle(article.Key, article.Title, article.Content, article.PreviewContent,
-                article.SeoKeyWords, article.SeoDescription, article.IsDraft);
+            _articleService.CreateArticle(article.Key, article.Title, article.Content, article.PreviewContent, article.IsDraft);
             return new OkResult();
         }
     }

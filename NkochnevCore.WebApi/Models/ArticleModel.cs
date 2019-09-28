@@ -20,8 +20,6 @@ namespace NkochnevCore.WebApi.Models
             Modified = articleDomain.Modified.ToString("dd MMMM, yyyy");
             PreviewContent = articleDomain.Preview;
             Content = articleDomain.Content;
-            SeoDescription = articleDomain.SeoDescription;
-            SeoKeyWords = articleDomain.SeoKeyWords;
             IsDraft = articleDomain.IsDraft;
         }
 
@@ -37,8 +35,6 @@ namespace NkochnevCore.WebApi.Models
         public string PreviewContent { get; set; }
 
         public string Content { get; set; }
-        public string SeoKeyWords { get; set; }
-        public string SeoDescription { get; set; }
         public bool IsDraft { get; set; }
 
         public ArticleModel ToMarkdownStyle()

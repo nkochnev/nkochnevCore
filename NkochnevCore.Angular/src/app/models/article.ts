@@ -9,7 +9,5 @@ export class Article  {
 
   content: string;
   previewContent: string;
-  seoKeyWords: string;
-  seoDescription: string;
   isDraft: boolean;
 }
