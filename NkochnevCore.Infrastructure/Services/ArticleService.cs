@@ -32,22 +32,22 @@ namespace NkochnevCore.Infrastructure.Services
         }
 
         public ArticleDomain CreateArticle(string key, string title, string content, string preview, string seoKeyWords,
-            string seoDescription)
+            string seoDescription, bool isDraft)
         {
             var article = FindArticleDomain(key);
             if (article != null) throw new Exception($"Статья с ключом {article.Key} уже создана");
 
-            article = FillArticle(new ArticleDomain(), key, title, content, preview, seoKeyWords, seoDescription);
+            article = FillArticle(new ArticleDomain(), key, title, content, preview, seoKeyWords, seoDescription, isDraft);
             article.Created = DateTime.Now;
             _articleRepository.Insert(article);
             return article;
         }
 
         public ArticleDomain UpdateArticle(string key, string title, string content, string preview, string seoKeyWords,
-            string seoDescription)
+            string seoDescription, bool isDraft)
         {
             var article = FindArticleDomain(key);
-            article = FillArticle(article, key, title, content, preview, seoKeyWords, seoDescription);
+            article = FillArticle(article, key, title, content, preview, seoKeyWords, seoDescription, isDraft);
             _articleRepository.Update(article);
             return article;
         }
@@ -66,7 +66,7 @@ namespace NkochnevCore.Infrastructure.Services
 
         private ArticleDomain FillArticle(ArticleDomain article, string key, string title, string content,
             string preview, string seoKeyWords,
-            string seoDescription)
+            string seoDescription, bool isDraft)
         {
             article.Title = title;
             article.Content = content;
@@ -75,6 +75,7 @@ namespace NkochnevCore.Infrastructure.Services
             article.SeoKeyWords = seoKeyWords;
             article.SeoDescription = seoDescription;
             article.Preview = preview;
+            article.IsDraft = isDraft;
             return article;
         }
 

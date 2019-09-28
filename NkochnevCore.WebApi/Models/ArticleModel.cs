@@ -22,6 +22,7 @@ namespace NkochnevCore.WebApi.Models
             Content = articleDomain.Content;
             SeoDescription = articleDomain.SeoDescription;
             SeoKeyWords = articleDomain.SeoKeyWords;
+            IsDraft = articleDomain.IsDraft;
         }
 
         public string Key { get; set; }
@@ -38,6 +39,7 @@ namespace NkochnevCore.WebApi.Models
         public string Content { get; set; }
         public string SeoKeyWords { get; set; }
         public string SeoDescription { get; set; }
+        public bool IsDraft { get; set; }
 
         public ArticleModel ToMarkdownStyle()
         {

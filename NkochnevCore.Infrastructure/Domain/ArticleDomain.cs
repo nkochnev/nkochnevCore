@@ -15,6 +15,7 @@ namespace NkochnevCore.Infrastructure.Domain
         public string SeoKeyWords { get; set; }
         public string SeoDescription { get; set; }
 
+        public bool IsDraft { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

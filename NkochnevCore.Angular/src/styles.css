@@ -1180,6 +1180,19 @@ html {
 
 .article-warning { color: red; }
 
+.article img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.loader{
+  text-align: center;
+  padding-top: 20px;
+}
+
 table, td, th {
   border: 1px solid #ddd;
   text-align: left;

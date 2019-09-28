@@ -1,4 +1,8 @@
-<article *ngIf="article">
+<div *ngIf="!article" class="loader">
+    <img src="/assets/loading.gif" alt="Загрузка статьи" />
+</div>
+
+<article class="article" *ngIf="article">
   <header class="entry-header">
     <div class="entry-meta">
       <span>

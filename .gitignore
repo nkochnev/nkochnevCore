@@ -333,3 +333,4 @@ testem.log
 .DS_Store
 Thumbs.db
 NkochnevCore.WebApi/internal-nlog.txt
+/NkochnevCore.WebApi/appsettings.json

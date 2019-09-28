@@ -1,4 +1,6 @@
-<a (click)="logout()" *ngIf="authService.isLoggedIn()" href="#">Exit</a>
+<ul *ngIf="authService.isLoggedIn()">
+    <li><a routerLink='/createarticle'>Создать статью</a></li>
+    <li><a (click)="logout()" href="#">Exit</a></li>
+</ul>
 
 <app-article-preview-list [articles]="previews"></app-article-preview-list>
-<a routerLink='/createarticle' *ngIf="authService.isLoggedIn()">Создать статью</a>

@@ -30,12 +30,8 @@ namespace NkochnevCore.WebApi
             services.AddMvc(config => { config.Filters.Add(typeof(ExceptionFilter)); });
             services.AddCors();
 
-            services.AddDbContext<NkochnevDataContext>(
-                options => options
-                    //MS SQL
-             //       .UseSqlServer(Configuration.GetConnectionString("NkochnevDataContext")));
-            //Postgres SQL
-            .UseNpgsql(Configuration.GetConnectionString("NkochnevDataContext")));
+            services.AddDbContext<NkochnevDataContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("NkochnevDataContext")));
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddTransient<IAuthService, AuthService>();
@@ -70,7 +66,7 @@ namespace NkochnevCore.WebApi
 
                         // странная опция
                         // можно указать период, когда токен истёк, но считается сервером валидным
-                        ClockSkew = TimeSpan.Zero,
+                        ClockSkew = TimeSpan.FromMinutes(5),
 
                         // установка ключа безопасности
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),

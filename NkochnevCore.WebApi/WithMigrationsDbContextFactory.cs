@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using NkochnevCore.Infrastructure;
 using NkochnevCore.Infrastructure.Data;
 
 namespace NkochnevCore.WebApi
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<NkochnevDataContext>
+    public class WithMigrationsDbContextFactory : IDesignTimeDbContextFactory<NkochnevDataContext>
     {
         public NkochnevDataContext CreateDbContext(string[] args)
         {
@@ -17,11 +18,7 @@ namespace NkochnevCore.WebApi
             var builder = new DbContextOptionsBuilder<NkochnevDataContext>();
             var connectionString = configuration.GetConnectionString("NkochnevDataContext");
 
-            //MS SQL
-            builder.UseSqlServer(connectionString, x => x.MigrationsAssembly("NkochnevCore.Infrastructure"));
-
-            //Postgres SQL
-            //builder.UseNpgsql(connectionString, x => x.MigrationsAssembly("NkochnevCore.Infrastructure"));
+            builder.UseNpgsql(connectionString, x => x.MigrationsAssembly(typeof(AssemblyAnchor).Assembly.FullName));
 
             return new NkochnevDataContext(builder.Options);
         }

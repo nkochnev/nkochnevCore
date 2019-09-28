@@ -11,4 +11,5 @@ export class Article  {
   previewContent: string;
   seoKeyWords: string;
   seoDescription: string;
+  isDraft: boolean;
 }

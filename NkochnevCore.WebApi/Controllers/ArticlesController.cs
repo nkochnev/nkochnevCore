@@ -26,6 +26,8 @@ namespace NkochnevCore.WebApi.Controllers
         {
             _logger.LogInformation("GetArticles says hello");
             var articles = _articleService.GetArticles();
+            if (!User.Identity.IsAuthenticated)
+                articles = articles.Where(x => !x.IsDraft).ToList();
             return articles.Select(x => new ArticleModel(x).ToMarkdownStyle());
         }
 
@@ -41,7 +43,7 @@ namespace NkochnevCore.WebApi.Controllers
         public ActionResult UpdateArticle([FromRoute] string key, [FromBody] ArticleModel article)
         {
             _articleService.UpdateArticle(key, article.Title, article.Content, article.PreviewContent,
-                article.SeoKeyWords, article.SeoDescription);
+                article.SeoKeyWords, article.SeoDescription, article.IsDraft);
             return new OkResult();
         }
 
@@ -50,7 +52,7 @@ namespace NkochnevCore.WebApi.Controllers
         public ActionResult CreateArticle([FromBody] ArticleModel article)
         {
             _articleService.CreateArticle(article.Key, article.Title, article.Content, article.PreviewContent,
-                article.SeoKeyWords, article.SeoDescription);
+                article.SeoKeyWords, article.SeoDescription, article.IsDraft);
             return new OkResult();
         }
     }

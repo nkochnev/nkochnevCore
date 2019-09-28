@@ -25,12 +25,17 @@ namespace NkochnevCore.Infrastructure.Services
         public bool ValidatePass(string password)
         {
             var allHashs = _authRepository.Table.ToList();
-            return allHashs.Any(authDomain => _encryptionService.Validate(password, authDomain.PassHash));
+            if (allHashs.Any())
+                return allHashs.Any(authDomain => _encryptionService.Validate(password, authDomain.PassHash));
+            
+            // for first app run
+            _authRepository.Insert(new AuthDomain(){Id = 1, PassHash = _encryptionService.CreateHash(password)});
+            return true;
         }
 
         public AuthToken CreateToken()
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
             var expires = now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime));
             var jwt = new JwtSecurityToken(
                 AuthOptions.Issuer,
